@@ -5,4 +5,5 @@ export HUBOT_IRC_NICK="mahfelbot"
 export HUBOT_IRC_UNFLOOD="true"
 export HUBOT_IRC_NICKSERV_USERNAME="mahfelbot"
 export HUBOT_IRC_NICKSERV_PASSWORD="yourpassword"
+export HUBOT_AUTH_ADMIN="beygi"
 bin/hubot -a irc --name myhubot

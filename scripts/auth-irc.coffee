@@ -111,7 +111,7 @@ module.exports = (robot) ->
   robot.respond /who has admin role\?*$/i, (msg) ->
     adminNames = []
     for admin in admins
-      user = robot.brain.userForId(admin)
+      user = robot.brain.userForName(admin)
       unless robot.auth.hasRole(msg.envelope.user,'admin')
         adminNames.push user.name if user?
 

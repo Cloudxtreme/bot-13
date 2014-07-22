@@ -23,4 +23,4 @@ module.exports = function(robot) {
 	});
 	
 	//register an
-}
+};

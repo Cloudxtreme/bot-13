@@ -53,7 +53,7 @@ module.exports = (robot) ->
           robot.send user, "#{push.pusher.name} deleted: #{push.ref}"
       
       #reload
-       robot.send user, "update repository using git pull,run npm install and rerun the process ..."
+       robot.send user, "update repository using git pull,run npm install and rerun the process ... "
        setTimeout (->
             child_process.exec './restart.sh', (error, stdout, stderr) ->
                if error

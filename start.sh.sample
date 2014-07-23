@@ -6,4 +6,5 @@ export HUBOT_IRC_UNFLOOD="true"
 export HUBOT_IRC_NICKSERV_USERNAME="mahfelbot"
 export HUBOT_IRC_NICKSERV_PASSWORD="yourpassword"
 export HUBOT_AUTH_ADMIN="beygi,intuxicated,chatterbox"
+export PORT='8090'
 bin/hubot -a irc --name myhubot

@@ -41,12 +41,7 @@ module.exports = (robot) ->
       if push.commits.length > 0
         commitWord = if push.commits.length > 1 then "commits" else "commit"
         robot.send user, "Got #{push.commits.length} new #{commitWord} from #{push.commits[0].author.name} on #{push.repository.name}"
-        robot.send user, "update repository using git pull,run npm install and rerun the process ..."
-        #process.exit 0
-        child_process.exec './restart.sh', (error, stdout, stderr) ->
-            if error
-                msg.send "reload failed: " + stderr        
-        
+               
         for commit in push.commits
           do (commit) ->
             gitio commit.url, (err, data) ->
@@ -56,6 +51,15 @@ module.exports = (robot) ->
           robot.send user, "#{push.pusher.name} created: #{push.ref}: #{push.base_ref}"
         if push.deleted
           robot.send user, "#{push.pusher.name} deleted: #{push.ref}"
+      
+      #reload
+       robot.send user, "update repository using git pull,run npm install and rerun the process ..."
+       setTimeout (->
+            child_process.exec './restart.sh', (error, stdout, stderr) ->
+               if error
+                 msg.send "reload failed: " + stderr           
+       ), 3000
+
 
     catch error
       console.log "github-commits error: #{error}. Push: #{push}"

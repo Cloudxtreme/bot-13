@@ -1,5 +1,11 @@
 #!/bin/bash
-git pull
-npm install
-kill $(ps aux | grep 'hubot' | grep -v "grep" | awk '{print $2}')
-nohup ./start.sh &
+while (true) do
+	if ps aux |  grep "hubot" | grep -v grep > /dev/null
+	then
+		echo -n ""
+	else
+		date
+		echo "process not exists , rerun "
+		git pull
+		npm install
+		nohup ./start.sh &

@@ -54,11 +54,11 @@ module.exports = (robot) ->
       
       #reload
       setTimeout (->
-	  robot.send user, "update repository using git pull,run npm install and reRun the process ... "         
+        robot.send user, "update repository using git pull,run npm install and reRun the process ... "         
       ), 2000
        
       setTimeout (->
-    	    process.exit 0         
+         process.exit 0         
       ), 4000
 
 

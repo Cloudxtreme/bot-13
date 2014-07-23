@@ -1,6 +1,6 @@
 #!/bin/bash
 while (true) do
-	if ps aux |  grep "hubot" | grep -v grep > /dev/null
+	if ps aux | grep "node" | grep "hubot" | grep -v grep > /dev/null
 	then
 		echo -n ""
 	else
@@ -9,3 +9,6 @@ while (true) do
 		git pull
 		npm install
 		nohup ./start.sh &
+	fi
+	sleep 3
+done

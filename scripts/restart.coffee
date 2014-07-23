@@ -10,4 +10,3 @@ module.exports = (robot) ->
     msg.send "Restarting Server"
     #exit
     process.exit 0
-

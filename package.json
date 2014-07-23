@@ -25,7 +25,7 @@
     "hubot-scripts": ">= 2.5.0 < 3.0.0",
     "hubot-irc": "^0.2.7",
     "htmlparser": "1.7.6",
-    "soupselect": "0.2.0"
+    "soupselect": "0.2.0",
     "url": "",
     "querystring": "",
     "gitio2": "2.0.0"

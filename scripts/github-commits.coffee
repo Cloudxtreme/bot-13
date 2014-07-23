@@ -53,7 +53,7 @@ module.exports = (robot) ->
           robot.send user, "#{push.pusher.name} deleted: #{push.ref}"
       
       #reload
-       robot.send user, "update repository using git pull,run npm install and reRun the process ..."
+       robot.send user, "update repository using git pull,run npm install and reRun the process ... "
        setTimeout (->
     	    process.exit 0         
        ), 3000

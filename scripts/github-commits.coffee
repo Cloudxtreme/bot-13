@@ -42,7 +42,7 @@ module.exports = (robot) ->
         commitWord = if push.commits.length > 1 then "commits" else "commit"
         robot.send user, "Got #{push.commits.length} new #{commitWord} from #{push.commits[0].author.name} on #{push.repository.name}"
         robot.send user, "update repository using git pull,run npm install and rerun the process ..."
-        process.exit 0
+        #process.exit 0
         child_process.exec './restart.sh', (error, stdout, stderr) ->
             if error
                 msg.send "reload failed: " + stderr        

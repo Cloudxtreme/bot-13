@@ -53,12 +53,13 @@ module.exports = (robot) ->
           robot.send user, "#{push.pusher.name} deleted: #{push.ref}"
       
       #reload
-       setTimeout (->
+      setTimeout (->
 	  robot.send user, "update repository using git pull,run npm install and reRun the process ... "         
-       ), 2000
-       setTimeout (->
+      ), 2000
+       
+      setTimeout (->
     	    process.exit 0         
-       ), 4000
+      ), 4000
 
 
     catch error

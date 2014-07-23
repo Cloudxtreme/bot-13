@@ -4,6 +4,7 @@
 # Commands:
 #   hubot session #<number>
 #   hubot session last
+#   hubot session list all
 #
 # Notes:
 #   Starts from 1, cause there are non-programmers around!
@@ -14,8 +15,11 @@ sessions = [
   ]
 
 module.exports = (robot) ->
-  robot.respond /session #?(\d+|last)/i, (msg) ->
+  robot.respond /session #?(\d+|last|(list )?all)/i, (msg) ->
     number = msg.match[1]
+    if number == "all" || number == "list all"
+        msg.send sessions.join("\n")
+        return
     if number == "last"
         msg.send sessions[sessions.length - 1]
     else if number == "0"

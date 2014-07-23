@@ -41,7 +41,7 @@ module.exports = (robot) ->
         commitWord = if push.commits.length > 1 then "commits" else "commit"
         robot.send user, "Got #{push.commits.length} new #{commitWord} from #{push.commits[0].author.name} on #{push.repository.name}"
         robot.send user, "update repository ..."
-        robot.send user, robot.name+" reload all scripts"
+        robot.send user, robot.name+" reload all scripts ..."
         
         for commit in push.commits
           do (commit) ->

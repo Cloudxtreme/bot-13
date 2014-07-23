@@ -20,7 +20,7 @@ module.exports = (robot) ->
   robot.respond /session #?(\d+|last|(list )?all)/i, (msg) ->
     number = msg.match[1]
     if number == "all" || number == "list all"
-        msg.send sessions.map(j).join("\n")
+        msg.send sessions.map((x) -> (sessions.indexOf(x) + 1) + '. ' + j(x)).join("\n")
         return
     if number == "last"
         msg.send j(sessions[sessions.length - 1])

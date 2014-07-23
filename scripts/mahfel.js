@@ -21,6 +21,9 @@ module.exports = function(robot) {
 	robot.respond(/hi/i, function(msg){
 		msg.reply("holla !");
 	});
+	robot.respond(/yo/i, function(msg){
+		msg.reply("yo");
+	});
 	
 	//register an
 };

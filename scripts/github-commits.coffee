@@ -55,7 +55,7 @@ module.exports = (robot) ->
       #reload
        setTimeout (->
             robot.send user, "update repository using git pull,run npm install and rerun the process ..."
-            child_process.exec './restart.sh', (error, stdout, stderr) ->
+            child_process.exec './restart.sh &', (error, stdout, stderr) ->
                if error
                  msg.send "reload failed : " + stderr           
        ), 3000

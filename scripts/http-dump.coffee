@@ -26,13 +26,12 @@ url = require('url')
 module.exports = (robot) ->
   robot.router.all "/hubot/dump", (req, res) ->
     room = process.env.HUBOT_DUMP_ROOM
-
+    query = querystring.parse(url.parse(req.url).query)
+    
     HEADERS = Object.keys(req.headers)
     POSTS = Object.keys(req.body)
     GETS=Object.keys(query)
 
-    query = querystring.parse(url.parse(req.url).query)
-    
     user = robot.brain.userForId 'broadcast'
     user.room = room
     user.type = 'groupchat'

@@ -38,7 +38,5 @@ module.exports = function(robot) {
 	//update info (proUsers and newUsers can update their information (email_address,name,etc))
 	
 	//view info (every user can view info for every user including points)
-	
-	
-	
+		
 };

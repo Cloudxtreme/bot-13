@@ -41,7 +41,7 @@ module.exports = (robot) ->
 
   class Auth
     hasRole: (user, roles) ->
-      user = robot.brain.userForId(user.id)
+      user = robot.brain.userForName(user.name)
       if user? and user.roles?
         roles = [roles] if typeof roles is 'string'
         for role in roles

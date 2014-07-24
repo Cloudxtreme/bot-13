@@ -123,9 +123,10 @@ module.exports = (robot) ->
       
   robot.respond /who has @?(.+) role\?*$/i, (msg) ->
     role = msg.match[1].trim().toLowerCase()
-    users=robot.auth.usersWithRole(role)
-    if users.length > 0
-      msg.reply "The following people have the '"+role+"' role: #{users.join(', ')}"
-    else
-      msg.reply "There are no people that have the '"+role+"' role."
+    if role!='admin'
+        users=robot.auth.usersWithRole(role)
+        if users.length > 0
+          msg.reply "The following people have the '"+role+"' role: #{users.join(', ')}"
+        else
+          msg.reply "There are no people that have the '"+role+"' role."
 

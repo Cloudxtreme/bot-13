@@ -1,39 +1,38 @@
 # Description:
-#   "Accepts POST and GET data and broadcasts it"
+#   "Accepts any request and dump post,query strings and headers for debugging purpose"
 #
 # Dependencies:
-#   None
+#   "url": ""
+#   "querystring": ""
 #
 # Configuration:
-#   None
+#   HUBOT_DUMP_ROOM - room for data dump
 #
 # Commands:
 #   None
 #
 # URLs:
 #   POST /hubot/dump
-#     message = <message>
-#     room = <room>
 #
 #
 #   curl -X POST "http://hubotIp:hubotPort/hubot/dump?foo=bar&name=richard" -d myPost=stallman
 #
 # Author:
-#   beygi
+#   mahdy beygi
 
 querystring = require('querystring')
 url = require('url')
 
 module.exports = (robot) ->
   robot.router.all "/hubot/dump", (req, res) ->
+    room = process.env.HUBOT_DUMP_ROOM
 
-    room = "#mahfel"
     HEADERS = Object.keys(req.headers)
     POSTS = Object.keys(req.body)
-    query = querystring.parse(url.parse(req.url).query)
     GETS=Object.keys(query)
-    #robot.logger.info "Message '#{message}' received for room #{room}"
 
+    query = querystring.parse(url.parse(req.url).query)
+    
     user = robot.brain.userForId 'broadcast'
     user.room = room
     user.type = 'groupchat'
@@ -48,4 +47,4 @@ module.exports = (robot) ->
         robot.send user, "GET-> "+getData+': "'+query[getData]+'"';
 
     res.writeHead 200, {'Content-Type': 'text/plain'}
-    res.end 'Thanks\n'
+    res.end 'Request Compeleted\n'

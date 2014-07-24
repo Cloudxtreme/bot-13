@@ -22,10 +22,10 @@ module.exports = (robot) ->
 
   robot.respond /DIE$/i, (msg) ->
     if robot.auth.hasRole(msg.envelope.user, "prouser")
-	    msg.send "you are a pro usr so Goodbye, cruel world."
-	    setTimeout (->
-		process.exit 0          
-	    ), 2000
+      msg.send "you are a pro usr so Goodbye, cruel world."
+      setTimeout (->
+        process.exit 0          
+      ), 2000
     else
-	    msg.send "you are not a pro user , so suck it !"
+      msg.send "you are not a pro user , so suck it !"
 

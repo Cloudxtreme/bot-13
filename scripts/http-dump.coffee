@@ -28,7 +28,7 @@ module.exports = (robot) ->
   robot.router.all "/hubot/dump", (req, res) ->
 
     room = "#mahfel"
-    
+    HEADERS = Object.keys(req.headers)
     POSTS = Object.keys(req.body)
     query = querystring.parse(url.parse(req.url).query)
     GETS=Object.keys(query)
@@ -37,6 +37,9 @@ module.exports = (robot) ->
     user = robot.brain.userForId 'broadcast'
     user.room = room
     user.type = 'groupchat'
+
+    for headerData in HEADERS
+        robot.send user, "HEADER-> "+headerData+': "'+req.headers[headerData]+'"';    
 
     for postData in POSTS
         robot.send user, "POST-> "+postData+': "'+req.body[postData]+'"';

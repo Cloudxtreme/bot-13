@@ -16,7 +16,7 @@
 #     room = <room>
 #
 #
-#   curl -X POST "http://hubotIp:hubotPort/hubot/dump?foo=bar&name=richard" -d myPost=stallma
+#   curl -X POST "http://hubotIp:hubotPort/hubot/dump?foo=bar&name=richard" -d myPost=stallman
 #
 # Author:
 #   beygi
@@ -25,7 +25,7 @@ querystring = require('querystring')
 url = require('url')
 
 module.exports = (robot) ->
-  robot.router.post "/hubot/dump", (req, res) ->
+  robot.router.all "/hubot/dump", (req, res) ->
 
     room = "#mahfel"
     

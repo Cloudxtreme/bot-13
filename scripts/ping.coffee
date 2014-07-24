@@ -21,6 +21,7 @@ module.exports = (robot) ->
     msg.send "Server time is: #{new Date()}"
 
   robot.respond /DIE$/i, (msg) ->
+    console.log(msg.envelope.user)
     if robot.auth.hasRole(msg.envelope.user, "prouser")
       msg.send "you are a pro usr so Goodbye, cruel world."
       setTimeout (->

@@ -13,6 +13,7 @@
 #   hubot <user> doesn't have <role> role - Removes a role from a user
 #   hubot what role does <user> have - Find out what roles are assigned to a specific user
 #   hubot who has admin role - Find out who's an admin and can assign roles
+#   hubot who has <role> role - Find out who's an admin and can assign roles
 #
 # Notes:
 #   * Call the method: robot.auth.hasRole(msg.envelope.user,'<role>')
@@ -50,8 +51,8 @@ module.exports = (robot) ->
     usersWithRole: (role) ->
       users = []
       for own key, user of robot.brain.data.users
-        if robot.auth.hasRole(msg.envelope.user, role)
-          users.push(user)
+        if robot.auth.hasRole(user, role)
+          users.push(user.name)
       users
 
   robot.auth = new Auth
@@ -119,4 +120,12 @@ module.exports = (robot) ->
       msg.reply "The following people have the 'admin' role: #{adminNames.join(', ')}"
     else
       msg.reply "There are no people that have the 'admin' role."
+      
+  robot.respond /who has @?(.+) role\?*$/i, (msg) ->
+    role = msg.match[1].trim().toLowerCase()
+    users=robot.auth.usersWithRole(role)
+    if users.length > 0
+      msg.reply "The following people have the '"+role+"' role: #{users.join(', ')}"
+    else
+      msg.reply "There are no people that have the '"+role+"' role."
 

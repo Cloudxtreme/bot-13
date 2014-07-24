@@ -24,6 +24,8 @@ module.exports = function(robot) {
 	robot.respond(/yo/i, function(msg){
 		msg.reply("yo");
 	});
+	//open vote for honor user (all proUsers most be agree)
+	
 	//open vote for new user (all proUsers most be agree)
 	
 	//open vote for removing user (all proUsers most be agree except candidate)

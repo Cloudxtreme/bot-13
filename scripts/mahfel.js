@@ -12,7 +12,7 @@
 //
 // Author:
 //  Mahdy beygi
-
+mongo=require("../mahfel_modules/mongo.js");
 
 module.exports = function(robot) {
 	robot.respond(/noIdentify/i, function(msg){
@@ -24,7 +24,38 @@ module.exports = function(robot) {
 	robot.respond(/yo/i, function(msg){
 		msg.reply("yo");
 	});
+	robot.respond(/open @?(.+) vote for @?(.+)\?*$/i, function(msg){
+		vote = {}
+		vote.type=msg.match[1].trim()
+		console.log(msg.match[1].trim());
+		if ( vote.type!='honor' && vote.type!='new' && vote.type!='fire') {
+			msg.reply("valid vote types are : honor,new and fire ");
+		}else if (!robot.auth.hasRole(msg.envelope.user, "prouser")) {
+			msg.reply("you are not a pro user , you cant open any vote");
+		}else if ( (vote.type=='honor' || vote.type=='new' || vote.type=='fire') && robot.auth.hasRole(msg.envelope.user, "prouser")) {
+			vote.user=msg.match[2].trim()
+			if (vote.type=='honor') {
+				vote.role='prouser'
+			}
+			if (vote.type=='new') {
+				vote.role='newuser'
+			}
+			if (vote.type=='fire') {
+				vote.role='none'
+			}
+			mongo.connect(function(err){
+			console.log('connected to mongo');	
+			mongo.openVote(vote,function(err){
+				msg.reply(err);
+			})
+			})
+		}
+		
+		
+	});	
+	
 	//open vote for honor user (all proUsers most be agree)
+	
 	
 	//open vote for new user (all proUsers most be agree)
 	

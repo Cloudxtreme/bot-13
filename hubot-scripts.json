@@ -1,1 +1,16 @@
-["redis-brain.coffee", "shipit.coffee","ascii.coffee","9gag.coffee","xkcd.coffee","which-do-you-prefer.coffee","tell.coffee","advice.coffee","clojure.coffee","directions.coffee","facepalm.coffee","fortune.coffee"]
+["redis-brain.coffee", "shipit.coffee","ascii.coffee","9gag.coffee","xkcd.coffee","which-do-you-prefer.coffee","tell.coffee","advice.coffee","clojure.coffee","directions.coffee","facepalm.coffee","fortune.coffee",
+"good-night.coffee",
+"google.coffee",
+"phpdoc.coffee",
+"sloth-me.coffee",
+"stallman.coffee",
+"sudo.coffee",
+"trollicon.coffee",
+"remember.coffee",
+"yell.coffee",
+"youtube-info.coffee",
+"zombies.coffee",
+"geocodeme.coffee",
+"eval.coffee",
+"facepalm.coffee",
+"devexcuse.coffee"]

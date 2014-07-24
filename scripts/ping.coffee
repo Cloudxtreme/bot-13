@@ -24,7 +24,7 @@ module.exports = (robot) ->
     if robot.auth.hasRole(msg.envelope.user, "prouser")
 	    msg.send "you are a pro usr so Goodbye, cruel world."
 	    setTimeout (->
-		robot.send user, "update repository using git pull,run npm install and reRun the process ..."         
+		process.exit 0          
 	    ), 2000
     else
 	    msg.send "you are not a pro user , so suck it !"

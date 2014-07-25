@@ -51,8 +51,8 @@ module.exports = (robot) ->
     usersWithRole: (role) ->
       users = []
       for own key, user of robot.brain.data.users
-        if user.name!=undefined and robot.auth.hasRole(user, role)
-          users.push(user.name)
+        if user.name!=undefined and robot.auth.hasRole(user, role) and users.indexOf(user.name.toLowerCase())==-1
+          users.push(user.name.toLowerCase())
       users
       
   class Mahfel

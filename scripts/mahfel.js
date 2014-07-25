@@ -188,14 +188,55 @@ module.exports = function(robot) {
 		
 	});	
 	
-
-	
-	//register new user and give it "newUser" role
 	
 	/*hear for +1 and -1 for newUsers from proUsers and apply points to newUsers , also inform to channel
 	and if user point is greater than 99 give it "proUser" role
 	some controls most apply here : proUsers cant add or subtract more than 3 point for each newUsers per day
 	*/
+	robot.hear(/([\+,-])(\d+) for (\w+)/i, function(msg){
+		sign = msg.match[1].trim()
+		point = msg.match[2].trim()
+		userName = msg.match[3].trim()
+		if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
+			mongo.connect(function(err){
+			console.log('connected to mongo');	
+			mongo.getUser(userName,function(mongoUser){
+				if (mongoUser!=null && mongoUser.role=='newuser') {
+					if(point<=3 && point>=1)
+					{
+						if (sign=='+') {
+							mongoUser.points=parseInt(mongoUser.points)+parseInt(point)
+						}
+						if (sign=='-') {
+							mongoUser.points=parseInt(mongoUser.points)-parseInt(point)
+						}
+						msg.send(sign+point+" for "+userName+"! , total point: "+mongoUser.points);
+						if (mongoUser.points>=100) {
+							//user is a proUser Now
+							msg.send(userName+": congrats! ,"+"welcome to mahfel as a proUser");
+								//add user name to mongos user list
+								mongoUser.role='prouser';
+								delete mongoUser['_id'];
+								mongo.insertOrUpdateObject('users',mongoUser,'name',function(){
+									//give it a prouser role in hubot auth system
+									mongo.getUsers(function(users){
+										robot.mahfel.fixRoles(users)
+									})	
+								})
+								
+								
+						}else
+						{
+							delete mongoUser['_id'];
+							mongo.insertOrUpdateObject('users',mongoUser,'name',function(){
+							})	
+						}
+					}
+				}
+			})
+			})
+		}
+	});
 	
 	//update info (proUsers and newUsers can update their information (email_address,name,etc))
 	

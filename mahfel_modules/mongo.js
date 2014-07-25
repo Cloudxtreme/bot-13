@@ -137,3 +137,16 @@ exports.getUsers=function(callback){
 	    callback(findrecs)
 	});
 };
+
+exports.getUser=function(name,callback){
+    var collection=mongo.db.collection('users');
+	find={name:name};
+	collection.find(find).toArray(function(err,findrecs){
+	    if (findrecs.length==0) {
+		callback(null);
+	    }else
+	    {
+		callback(findrecs[0])
+	    }
+	});
+};

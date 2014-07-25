@@ -1,4 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
+var BSON = require('mongodb').BSONPure;
 var exec = require('child_process').exec;
 async=require("async");
 
@@ -79,14 +80,14 @@ exports.openVote=function(obj,callback){
     var collection=mongo.db.collection('votes');
     var addobj=function(obj){
 	obj.createDate=new Date();
-	find={'user':obj.user , 'type':obj.type};
+	find={'user':obj.user , 'type':obj.type , status:'open'};
 	collection.find(find).toArray(function(err,findrec){
 	    if(findrec.length==0){
 		obj.status='open'
-		obj.voteNum=0
+		obj.voters=[]
 		obj.totalPoint=0
 		collection.insert(obj,function(err,records){
-		callback("vote opened successfully with id :"+records[0]['_id']);
+		callback("vote opened successfully with id: "+records[0]['_id']);
 		});
 	    }else{
 		callback("this vote already exist! id: "+findrec[0]['_id']); 
@@ -94,4 +95,45 @@ exports.openVote=function(obj,callback){
 	});
     };
     addobj(obj);
+};
+
+exports.getOpenVotes=function(callback){
+    var collection=mongo.db.collection('votes');
+	find={'status':'open'};
+	collection.find(find).toArray(function(err,findrecs){
+	    callback(findrecs)
+	});
+};
+
+exports.getVote=function(id,callback){
+    var collection=mongo.db.collection('votes');
+        var o_id = new BSON.ObjectID(id);
+	find={'_id':o_id,status:'open'};
+	collection.find(find).toArray(function(err,findrecs){
+	    if (findrecs.length==0) {
+		callback(null);
+	    }else
+	    {
+		callback(findrecs[0])
+	    }
+	});
+};
+
+exports.updateVote=function(obj,callback){
+    var collection=mongo.db.collection('votes');
+	find={type:obj.type,user:obj.user,role:obj.role,status:'open'};
+	delete obj['_id']
+	collection.update(find,{
+		    '$set':obj
+		},function(err){
+		   callback(err); 
+		});
+};
+
+exports.getVotes=function(callback){
+    var collection=mongo.db.collection('votes');
+	find={status:'open'};
+	collection.find(find).toArray(function(err,findrecs){
+	    callback(findrecs)
+	});
 };

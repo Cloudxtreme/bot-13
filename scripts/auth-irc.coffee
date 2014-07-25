@@ -51,7 +51,7 @@ module.exports = (robot) ->
     usersWithRole: (role) ->
       users = []
       for own key, user of robot.brain.data.users
-        if robot.auth.hasRole(user, role)
+        if user.name!=undefined and robot.auth.hasRole(user, role)
           users.push(user.name)
       users
 
@@ -113,7 +113,7 @@ module.exports = (robot) ->
     adminNames = []
     for admin in admins
       user = robot.brain.userForName(admin)
-      unless robot.auth.hasRole(msg.envelope.user.name,'admin')
+      unless robot.auth.hasRole(msg.envelope.user,'admin')
         adminNames.push user.name if user?
 
     if adminNames.length > 0

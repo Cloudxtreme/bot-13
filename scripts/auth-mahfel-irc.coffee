@@ -54,7 +54,22 @@ module.exports = (robot) ->
         if user.name!=undefined and robot.auth.hasRole(user, role)
           users.push(user.name)
       users
-
+      
+  class Mahfel
+    fixRoles: (users) ->
+      #clean up all roles
+      for own key, fetchUser of robot.brain.data.users
+        if(fetchUser.name!=undefined)
+            user = robot.brain.userForName(fetchUser.name)
+            user.roles=[]
+      for mahfelUser in users
+        user = robot.brain.userForName(mahfelUser.name)
+        if (user!=null)
+            #clean all roles and add role from mongodb's data
+            user.roles=[mahfelUser.role]
+            console.log("add "+mahfelUser.role+" to "+user.name)
+                
+  robot.mahfel = new Mahfel          
   robot.auth = new Auth
 
   robot.respond /@?(.+) (has) (["'\w: -_]+) (role)/i, (msg) ->

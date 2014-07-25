@@ -31,7 +31,7 @@ exports.insertOrUpdateObject=function(collectionName,obj,uniqCol,callback){
     var collection=mongo.db.collection(collectionName);
     var addobj=function(obj){
 	//add crawl date for every object
-	obj.lastCrawl=new Date();
+	obj.updateDate=new Date();
 	find={};
 	find[uniqCol]=obj[uniqCol];
 
@@ -130,9 +130,9 @@ exports.updateVote=function(obj,callback){
 		});
 };
 
-exports.getVotes=function(callback){
-    var collection=mongo.db.collection('votes');
-	find={status:'open'};
+exports.getUsers=function(callback){
+    var collection=mongo.db.collection('users');
+	find={};
 	collection.find(find).toArray(function(err,findrecs){
 	    callback(findrecs)
 	});

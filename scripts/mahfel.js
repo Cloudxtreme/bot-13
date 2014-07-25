@@ -25,6 +25,15 @@ module.exports = function(robot) {
 		msg.reply("yo");
 	});
 	
+	
+	//fix all ruls from mongo
+	mongo.connect(function(err){
+			console.log('fetching users from mongo');	
+			mongo.getUsers(function(users){
+				robot.mahfel.fixRoles(users)
+			})
+	})
+	
 	//show open votes
 	robot.respond(/show open votes/i, function(msg){
 		mongo.connect(function(err){
@@ -39,6 +48,7 @@ module.exports = function(robot) {
 		})
 	});
 	
+	
 	//register vote
 	robot.respond(/point @?(.+) for @?([0-9a-fA-F]{24})\?*$/i, function(msg){
 		votePoint=msg.match[1].trim();
@@ -49,6 +59,8 @@ module.exports = function(robot) {
 			msg.reply("you are not a pro user , you cant point for a vote");
 		}else
 		{
+			//TODO for fire vote , the candidate user should not allow to vote
+			
 			//get vote object
 			mongo.connect(function(err){
 				console.log('connected to mongo');	
@@ -80,6 +92,7 @@ module.exports = function(robot) {
 								vote.result='deny'
 							}
 							vote.status='close'
+							vote.totalUsers=users.length
 							msg.reply("Okay , "+vote.type+" vote is now compeleted for "+vote.user);
 							msg.reply("total point is: "+vote.totalPoint);
 							msg.reply("result is: "+vote.result);
@@ -91,7 +104,8 @@ module.exports = function(robot) {
 							if (vote.type=='honor' && vote.result=='accept') {
 								msg.reply(vote.user+": congrats! ,"+"welcome to mahfel as a proUser");
 								//add user name to mongos user list
-								
+								newUser={name:vote.user,role:'prouser'}
+								mongo.insertOrUpdateObject('users',newUser,'name',function(){})
 								//give it a prouser role in hubot auth system
 							}
 							
@@ -100,10 +114,13 @@ module.exports = function(robot) {
 							if (vote.type=='new' && vote.result=='accept') {
 								msg.reply(vote.user+": congrats! welcome to mahfel as a newUser , try to be a ProUser");
 								//add user name to mongos user list
-								
+								newUser={name:vote.user,role:'newuser',points:0}
+								mongo.insertOrUpdateObject('users',newUser,'name',function(){})
 								//give it a newuser role in hubot auth system
 							}
 							
+							
+							//TODO
 							//fire vote
 							if (vote.type=='fire' && vote.result=='accept') {
 								msg.reply(vote.user+": sorry! you are not a mahfel user anymore");
@@ -116,9 +133,12 @@ module.exports = function(robot) {
 							
 						}
 						
-						
 						mongo.updateVote(vote,function(err){
 							console.log('vote updated in mongodb');
+							//renew all roles in mongo		
+							mongo.getUsers(function(users){
+								robot.mahfel.fixRoles(users)
+							})
 						})
 						
 						//

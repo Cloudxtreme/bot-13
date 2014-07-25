@@ -11,7 +11,6 @@
 //   hubot noIdentify
 //   hubot hi
 //   hubot yo
-//   hubot hi
 //   hubot open (honor|new) vote for <userName>
 //   hubot show open votes
 //   hubot point (+1,-1) for voteId

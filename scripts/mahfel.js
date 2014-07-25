@@ -9,6 +9,15 @@
 //
 // Commands:
 //   hubot noIdentify
+//   hubot hi
+//   hubot yo
+//   hubot hi
+//   hubot open (honor|new) vote for <userName>
+//   hubot show open votes
+//   hubot point (+1,-1) for voteId
+//   (+|-)(1|2|3) point for <user>
+//
+//
 //
 // Author:
 //  Mahdy beygi

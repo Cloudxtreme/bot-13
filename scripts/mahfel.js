@@ -202,17 +202,12 @@ module.exports = function(robot) {
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
             mongo.connect(function(err) {
                 console.log('connected to mongo');
-                mongo.getUser(userName,function(mongoUser) {
-                    if (mongoUser !== null && mongoUser.role == 'newuser') {
-                        if(point<=3 && point>=1) {
-                            if (sign=='+') {
-                                mongoUser.points=parseInt(mongoUser.points)+parseInt(point);
-                            }
-                            if (sign=='-') {
-                                mongoUser.points=parseInt(mongoUser.points)-parseInt(point);
-                            }
-                            msg.send(sign+point+" for "+userName+"! , total point: "+mongoUser.points);
-                            if (mongoUser.points>=100) {
+                if(point<=3 && point>=1) {
+                   mongo.updateUserVote(userName, sign+point, function (err, mongoUser){
+                       if (err) console.log("error on updateUserVote: ",err);
+                       if (mongoUser !== undefined){
+                           msg.send(sign+point+" for "+userName+"! , total point: ", mongoUser.points);
+                           if (mongoUser.points>=100) {
                                 //user is a proUser Now
                                 msg.send(userName+": congrats! ,"+"welcome to mahfel as a proUser");
                                 //add user name to mongos user list
@@ -224,14 +219,10 @@ module.exports = function(robot) {
                                         robot.mahfel.fixRoles(users);
                                     });
                                 });
-                            } else {
-                                delete mongoUser['_id'];
-                                mongo.insertOrUpdateObject('users',mongoUser,'name',function() {
-                                });
                             }
-                        }
-                    }
-                });
+                       }
+                   });
+                }
             });
         }
     });

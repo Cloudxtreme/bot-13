@@ -146,3 +146,25 @@ exports.getUser=function(name,callback){
         }
     });
 };
+
+exports.updateUserVote=function(name, point, callback){
+    var collection=mongo.db.collection('users');
+    find={
+        name: name,
+        role: "newuser"
+    };
+
+    // this one will change points instantly due a cuncurrency problem
+    collection.findAndModify(find, [
+            ['_id','asc']
+        ], {
+            '$inc': {
+                points: pointr
+            }
+        },
+        {},
+        function (err, res){
+            callback(err, res);
+        };
+    );
+};

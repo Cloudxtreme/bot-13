@@ -165,6 +165,6 @@ exports.updateUserVote=function(name, point, callback){
         {},
         function (err, res){
             callback(err, res);
-        };
+        }
     );
 };

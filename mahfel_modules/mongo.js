@@ -35,21 +35,17 @@ exports.insertOrUpdateObject=function(collectionName,obj,uniqCol,callback){
 	find={};
 	find[uniqCol]=obj[uniqCol];
 
-	collection.find(find).toArray(function(err,findrec){
-	    if(findrec.length==0){
-		console.log("insert new Object : "+obj[uniqCol]);
-		collection.insert(obj,function(err,records){
-		callback(err);
-		});
-	    }else{
-		console.log("Update Object : "+obj[uniqCol]);
-		collection.update(find,{
-		    '$set':obj
-		},function(err){
-		   callback(err);
-		});
-	    }
-	});
+    // This will find it and update record, if not, just insert record
+    collection.find(find, {
+            '$set': obj
+        }, {
+            upsert: true
+        }, function(err) {
+		    console.log("Update Object : "+obj[uniqCol]);
+            callback(err);
+        }
+    );
+
     };
     if (obj.localImage==undefined && obj.image !="" && obj.image!=undefined ) {
 	//fetch image

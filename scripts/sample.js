@@ -32,7 +32,7 @@ module.exports = function(robot) {
         
         var massage="";
         //max smile is 20
-        for(var i=1;i<=count || i != 20 ;i++)
+        for(var i=1;i<=count && i != 20 ;i++)
             massage+=":) ";
             
         //send final message

@@ -261,5 +261,7 @@ module.exports = function(robot) {
                 });
             } else {
                 console.log(property + " is not a valid property");
+            }
+        }
     });
 };

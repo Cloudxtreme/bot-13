@@ -258,6 +258,8 @@ module.exports = function(robot) {
             } else {
                 msg.send(property + " is not a valid property");
             }
+        } else {
+            msg.send("You are not prouser, yet!")
         }
     });
 };

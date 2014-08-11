@@ -254,10 +254,10 @@ module.exports = function(robot) {
                     mongo.insertOrUpdateObject('users', user, function() {
                         msg.send(username +"'s email changed to ", email);
                     });
-                })
+                });
             } else {
                 msg.send(property + " is not a valid property");
             }
         }
     });
-
+};

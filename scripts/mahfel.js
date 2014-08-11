@@ -244,9 +244,11 @@ module.exports = function(robot) {
     robot.hear(/update my (\w+) to (.[^\s]+)/i, function(msg) {
         var property = msg.match[1];
         var value = msg.match[2];
-        var username = msg.envelope.user.id;
+        var username = msg.envelope.user.name;
         var vaildProperties = ["email", "github", "twitter", "feed", "description"];
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
+            console.log(validProperties)
+            console.log(validProperties.indexOf(property));
             if (validProperties.indexOf(property) > -1){
                 console.log("[DEBUG] ", property, " is valid." );
                 mongo.connect(function(err) {

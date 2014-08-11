@@ -241,13 +241,15 @@ module.exports = function(robot) {
     // should add validation for email, twitter, etc.
     // email -> (.[^@\s]*@+.[^\s]+))
 
-    robot.hear(/update my (\w+) to (.[^\s]+)/i, function(msg) {
+    robot.hear(/update my (\w+) (.[^\s]+)/i, function(msg) {
+        console.log(JSON.stringify(msg.match,null,4))
         var property = msg.match[1];
         var value = msg.match[2];
         var username = msg.envelope.user.name;
         var vaildProperties = ["email", "github", "twitter", "feed", "description"];
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
-            console.log(validProperties)
+            console.log("[DEBUG] ", username, " is prouser." );
+            console.log(validProperties);
             console.log(validProperties.indexOf(property));
             if (validProperties.indexOf(property) > -1){
                 console.log("[DEBUG] ", property, " is valid." );

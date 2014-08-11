@@ -246,12 +246,16 @@ module.exports = function(robot) {
         var value = msg.match[2];
         var username = msg.envelope.user;
         var vaildProperties = ["email", "github", "twitter", "feed", "description"];
+        console.log("[DEBUG]", property,value,username);
+        console.log("[DEBUG]", JSON.stringify(msg.match));
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
+            console.log("[DEBUG] ", username, " is verified ");
             if (validProperties.indexOf(property) > -1){
-                msg.send("[DEBUG]", JSON.stringify(msg.match));
+                console.log("[DEBUG] ", property, " is valid." );
                 mongo.connect(function(err) {
-                    console.log('connected to mongo');
+                    console.log("[DEBUG] connected to mongo");
                     mongo.getUser(username, function(user){
+                        console.log("[DEBUG] user in our databse: ", user);
                         user.email = email;
                         mongo.insertOrUpdateObject('users', user, function() {
                             msg.send(username +"'s email changed to ", email);

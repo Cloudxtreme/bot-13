@@ -18,7 +18,7 @@ sessions = [
 j = (x) -> x.name + "\n" + x.link
 
 module.exports = (robot) ->
-  robot.respond /session #?(\d+|last|(list )?all)/i, (msg) ->
+  robot.respond /sessions? #?(\d+|last|(list )?all)/i, (msg) ->
     number = msg.match[1]
     if number == "all" || number == "list all"
         msg.send sessions.map((x) -> (sessions.indexOf(x) + 1) + '. ' + j(x)).join("\n")

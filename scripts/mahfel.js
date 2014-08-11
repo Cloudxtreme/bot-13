@@ -237,8 +237,28 @@ module.exports = function(robot) {
         }
     });
 
-    //update info (proUsers and newUsers can update their information (email_address,name,etc))
+    // update info (proUsers and newUsers can update their information (email_address,name,etc)
+    // should add validation for email, twitter, etc.
+    // email -> (.[^@\s]*@+.[^\s]+))
 
-    //view info (every user can view info for every user including points)
+    robot.hear(/update my (\w+) (.[^\s]+)/i, function(msg) {
+        var property = msg.match[1];
+        var value = msg.match[2];
+        var username = msg.envelope.user;
+        var vaildProperties = ["email", "github", "twitter", "feed", "description"];
+        if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
+            if (validProperties.contain(property)){
+                mongo.getUser(username, function(user){
+                    user.email = email;
+                    mongo.insertOrUpdateObject('users', user, function() {
+                        msg.send(username +"'s email changed to ", email);
+                    });
+                })
+            } else {
+                msg.send(property + " is not a valid property");
+            }
+        }
+    });
 
+    // view info (every user can view info for every user including points)
 };

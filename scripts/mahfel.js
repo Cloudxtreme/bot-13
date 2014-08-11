@@ -242,13 +242,13 @@ module.exports = function(robot) {
     // email -> (.[^@\s]*@+.[^\s]+))
 
     robot.hear(/update my (\w+) (.[^\s]+)/i, function(msg) {
-        msg.send("[DEBUG]", JSON.stringify(msg.match));
         var property = msg.match[1];
         var value = msg.match[2];
         var username = msg.envelope.user;
         var vaildProperties = ["email", "github", "twitter", "feed", "description"];
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
             if (validProperties.indexOf(property) > -1){
+                msg.send("[DEBUG]", JSON.stringify(msg.match));
                 mongo.connect(function(err) {
                     console.log('connected to mongo');
                     mongo.getUser(username, function(user){

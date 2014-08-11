@@ -249,12 +249,15 @@ module.exports = function(robot) {
         var vaildProperties = ["email", "github", "twitter", "feed", "description"];
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
             if (validProperties.indexOf(property) > -1){
-                mongo.getUser(username, function(user){
-                    user.email = email;
-                    mongo.insertOrUpdateObject('users', user, function() {
-                        msg.send(username +"'s email changed to ", email);
+                mongo.connect(function(err) {
+                    console.log('connected to mongo');
+                    mongo.getUser(username, function(user){
+                        user.email = email;
+                        mongo.insertOrUpdateObject('users', user, function() {
+                            msg.send(username +"'s email changed to ", email);
+                        });
                     });
-                });
+                }
             } else {
                 msg.send(property + " is not a valid property");
             }

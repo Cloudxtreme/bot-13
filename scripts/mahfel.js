@@ -257,12 +257,12 @@ module.exports = function(robot) {
                             msg.send(username +"'s email changed to ", email);
                         });
                     });
-                }
+                });
             } else {
                 msg.send(property + " is not a valid property");
             }
         } else {
-            msg.send("You are not prouser, yet!")
+            msg.send("You are not prouser, yet!");
         }
     });
 };

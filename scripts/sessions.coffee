@@ -13,9 +13,9 @@ querystring = require('querystring')
 url = require('url')
 
 sessions = [
-  {name: "Why Rust?!", link: "http://www.youtube.com/watch?v=_NxqbrDAyXY"},
-  {name: "Clojure Concurrency - Part I", link: "http://www.youtube.com/watch?v=mTW7d7PI1xk"},
-  {name: "Clojure Concurrency - Part II", link: "http://www.youtube.com/watch?v=chH4om-1kqI"},
+  {name: "Why Rust?!", link: "http://mahfel.rocks/sessions/Why_Rust.webm"},
+  {name: "Clojure Concurrency - Part I", link: "http://mahfel.rocks/sessions/Clojure_Conc_I.webm"},
+  {name: "Clojure Concurrency - Part II", link: "http://mahfel.rocks/sessions/Clojure_Conc_II.webm"},
   ]
 
 j = (x) -> x.name + "\n" + x.link

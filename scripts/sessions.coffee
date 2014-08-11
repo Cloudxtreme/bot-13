@@ -9,6 +9,9 @@
 # Notes:
 #   Starts from 1, cause there are non-programmers around!
 
+querystring = require('querystring')
+url = require('url')
+
 sessions = [
   {name: "Why Rust?!", link: "http://www.youtube.com/watch?v=_NxqbrDAyXY"},
   {name: "Clojure Concurrency - Part I", link: "http://www.youtube.com/watch?v=mTW7d7PI1xk"},
@@ -29,3 +32,7 @@ module.exports = (robot) ->
         msg.send "Not all people are programmers!"
     else
         msg.send if number - 1 < sessions.length then j(sessions[number - 1]) else "No such session!"
+
+  robot.router.all "/hubot/sessions", (req, res) ->
+    res.writeHead(200, {'Content-Type': 'application/json'})
+    res.end JSON.stringify(sessions)

@@ -241,15 +241,12 @@ module.exports = function(robot) {
     // should add validation for email, twitter, etc.
     // email -> (.[^@\s]*@+.[^\s]+))
 
-    robot.hear(/update my (\w+) (.[^\s]+)/i, function(msg) {
+    robot.hear(/update my (\w+) to (.[^\s]+)/i, function(msg) {
         var property = msg.match[1];
         var value = msg.match[2];
         var username = msg.envelope.user.id;
         var vaildProperties = ["email", "github", "twitter", "feed", "description"];
-        console.log("[DEBUG]", property,value,username);
-        console.log("[DEBUG]", JSON.stringify(msg.match));
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
-            console.log("[DEBUG] ", username, " is verified ");
             if (validProperties.indexOf(property) > -1){
                 console.log("[DEBUG] ", property, " is valid." );
                 mongo.connect(function(err) {
@@ -263,10 +260,6 @@ module.exports = function(robot) {
                     });
                 });
             } else {
-                msg.send(property + " is not a valid property");
-            }
-        } else {
-            msg.send("You are not prouser, yet!");
-        }
+                console.log(property + " is not a valid property");
     });
 };

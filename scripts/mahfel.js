@@ -244,7 +244,7 @@ module.exports = function(robot) {
     robot.hear(/update my (\w+) (.[^\s]+)/i, function(msg) {
         var property = msg.match[1];
         var value = msg.match[2];
-        var username = msg.envelope.user;
+        var username = msg.envelope.user.id;
         var vaildProperties = ["email", "github", "twitter", "feed", "description"];
         console.log("[DEBUG]", property,value,username);
         console.log("[DEBUG]", JSON.stringify(msg.match));

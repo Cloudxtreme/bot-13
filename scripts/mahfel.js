@@ -246,12 +246,8 @@ module.exports = function(robot) {
         var property = msg.match[1];
         var value = msg.match[2];
         var username = msg.envelope.user.name;
-        var vaildProperties = ["email", "github", "twitter", "feed", "description"];
+        var validdProperties = ["email", "github", "twitter", "feed", "description"];
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
-            console.log("[DEBUG] ", username, " is prouser." );
-            console.log("[DEBUG] validProperties", typeof validProperties);
-            console.log(validProperties);
-            console.log(validProperties.indexOf(property));
             if (validProperties.indexOf(property) > -1){
                 console.log("[DEBUG] ", property, " is valid." );
                 mongo.connect(function(err) {
@@ -265,7 +261,7 @@ module.exports = function(robot) {
                     });
                 });
             } else {
-                console.log(property + " is not a valid property");
+                msg.send(property + " is not a valid property");
             }
         }
     });

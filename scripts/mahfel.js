@@ -154,7 +154,7 @@ module.exports = function(robot) {
             });
         }
     }
-    );
+                 );
 
     //open new vote
     //open vote for honor user (all proUsers most be agree)
@@ -193,9 +193,9 @@ module.exports = function(robot) {
 
 
     /*hear for +1 and -1 for newUsers from proUsers and apply points to newUsers , also inform to channel
-      and if user point is greater than 99 give it "proUser" role
-      some controls most apply here : proUsers cant add or subtract more than 3 point for each newUsers per day
-      */
+     and if user point is greater than 99 give it "proUser" role
+     some controls most apply here : proUsers cant add or subtract more than 3 point for each newUsers per day
+     */
     robot.hear(/([\+,-])(\d+) for (\w+)/i, function(msg) {
         sign = msg.match[1].trim();
         point = msg.match[2].trim();
@@ -245,8 +245,8 @@ module.exports = function(robot) {
         console.log(JSON.stringify(msg.match,null,4));
         var property = msg.match[1];
         var value = msg.match[2];
-        var username = msg.envelope.user.name;
-        var validdProperties = ["email", "github", "twitter", "feed", "description"];
+        var username = msg.envelope.user.name;
+        var validProperties = ["email", "github", "twitter", "feed", "description"];
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
             if (validProperties.indexOf(property) > -1){
                 console.log("[DEBUG] ", property, " is valid." );
@@ -254,9 +254,9 @@ module.exports = function(robot) {
                     console.log("[DEBUG] connected to mongo");
                     mongo.getUser(username, function(user){
                         console.log("[DEBUG] user in our databse: ", user);
-                        user.email = email;
+                        user[property] = value;
                         mongo.insertOrUpdateObject('users', user, function() {
-                            msg.send(username +"'s email changed to ", email);
+                            msg.send(username +"'s " + property + " changed to ", value);
                         });
                     });
                 });

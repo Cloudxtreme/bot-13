@@ -241,7 +241,7 @@ module.exports = function(robot) {
     // should add validation for email, twitter, etc.
     // email -> (.[^@\s]*@+.[^\s]+))
 
-    robot.hear(/update my (\w+) (.[^\s]+)/i, function(msg) {
+    robot.hear(/set (\w+) (.[^\s]+)/i, function(msg) {
         console.log(JSON.stringify(msg.match,null,4));
         var property = msg.match[1];
         var value = msg.match[2];
@@ -255,7 +255,8 @@ module.exports = function(robot) {
                     mongo.getUser(username, function(user){
                         console.log("[DEBUG] user in our databse: ", user);
                         user[property] = value;
-                        mongo.insertOrUpdateObject('users', user, function() {
+                        mongo.insertOrUpdateObject("users", user, "name",function(error) {
+                            if(error) console.log("[ERROR]", error);
                             msg.send(username +"'s " + property + " changed to ", value);
                         });
                     });

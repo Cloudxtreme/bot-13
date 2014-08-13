@@ -241,7 +241,7 @@ module.exports = function(robot) {
     // should add validation for email, twitter, etc.
     // email -> (.[^@\s]*@+.[^\s]+))
 
-    robot.hear(/set (\w+) (.[^\s]+)/i, function(msg) {
+    robot.hear(/set (\w+) (.+)/i, function(msg) {
         console.log(JSON.stringify(msg.match,null,4));
         var property = msg.match[1];
         var value = msg.match[2];

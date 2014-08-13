@@ -246,7 +246,7 @@ module.exports = function(robot) {
         var property = msg.match[1];
         var value = msg.match[2];
         var username = msg.envelope.user.name;
-        var validProperties = ["email", "github", "twitter", "feed", "description"];
+        var validProperties = ["email", "github", "twitter", "feed", "desc", "fullname"];
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
             if (validProperties.indexOf(property) > -1){
                 console.log("[DEBUG] ", property, " is valid." );

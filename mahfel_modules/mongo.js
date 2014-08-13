@@ -153,7 +153,7 @@ exports.getUsers=function(callback){
 
 exports.getUser=function(name,callback){
     var collection=mongo.db.collection('users');
-    find={name:name};
+    find={name:name.toLowerCase()};
     collection.find(find).toArray(function(err,findrecs){
         if (findrecs.length===0) {
             callback(null);

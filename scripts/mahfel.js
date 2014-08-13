@@ -245,7 +245,7 @@ module.exports = function(robot) {
         console.log(JSON.stringify(msg.match,null,4));
         var property = msg.match[1];
         var value = msg.match[2];
-        var username = msg.envelope.user.name;
+        var username = msg.envelope.user.name;
         var validProperties = ["email", "github", "twitter", "feed", "description"];
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {
             if (validProperties.indexOf(property) > -1){

@@ -243,8 +243,8 @@ module.exports = function(robot) {
 
     robot.hear(/set (\w+) (.+)/i, function(msg) {
         console.log(JSON.stringify(msg.match,null,4));
-        var property = msg.match[1];
-        var value = msg.match[2];
+        var property = msg.match[1].trim();
+        var value = msg.match[2].trim();
         var username = msg.envelope.user.name;
         var validProperties = ["email", "github", "twitter", "feed", "desc", "fullname"];
         if (robot.auth.hasRole(msg.envelope.user, "prouser")) {

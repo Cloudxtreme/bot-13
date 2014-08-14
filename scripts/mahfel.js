@@ -255,6 +255,7 @@ module.exports = function(robot) {
                     mongo.getUser(username, function(user){
                         console.log("[DEBUG] user in our databse: ", user);
                         user[property] = value;
+                        delete user['_id'];
                         mongo.insertOrUpdateObject("users", user, "name",function(error) {
                             if(error) console.log("[ERROR]", error);
                             msg.send(username +"'s " + property + " changed to ", value);

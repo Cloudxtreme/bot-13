@@ -263,7 +263,7 @@ module.exports = function(robot) {
                     });
                 });
             } else {
-                msg.send(property + " is not a valid property");
+                msg.send(property + " is not a valid property , valid properties are : "+validProperties.join(','));
             }
         }
     });

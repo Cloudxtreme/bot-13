@@ -16,6 +16,9 @@ sessions = [
   {name: "Why Rust?!", link: "http://mahfel.rocks/sessions/Why_Rust.webm"},
   {name: "Clojure Concurrency - Part I", link: "http://mahfel.rocks/sessions/Clojure_Conc_I.webm"},
   {name: "Clojure Concurrency - Part II", link: "http://mahfel.rocks/sessions/Clojure_Conc_II.webm"},
+  {name: "Javascript Development Workflow", link: ""},
+  {name: "Javascript, the Good Parts", link: ""},
+  {name: "Introducing Emacs Org-mode", link: "http://mahfel.rocks/sessions/org-mode.webm"},
   ]
 
 j = (x) -> x.name + "\n" + x.link

@@ -19,6 +19,7 @@ sessions = [
   {name: "Javascript Development Workflow", link: ""},
   {name: "Javascript, the Good Parts", link: ""},
   {name: "Introducing Emacs Org-mode", link: "http://mahfel.rocks/sessions/org-mode.webm"},
+  {name: "Introduction to core.async in ClojureScript", link: "http://mahfel.rocks/sessions/core-async.webm"},
   ]
 
 j = (x) -> x.name + "\n" + x.link
